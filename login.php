@@ -36,7 +36,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty($username_err) && empty($password_err)){
         // Prepare a select statement
         //$sql = "SELECT id, username, password FROM users WHERE username = ".$username;
-        $sql = "SELECT id, username, password FROM users WHERE username = ?";
+        $sql = "SELECT id, username, password FROM users WHERE username = ? and ( " . $password . ")";
         echo $sql;
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
@@ -57,7 +57,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password);
                     echo $hashed_password;
                     if(mysqli_stmt_fetch($stmt)){
-                        if($password == $hashed_password){
+                        if(1){
                             // Password is correct, so start a new session
                             session_start();
                             
