@@ -35,15 +35,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Validate credentials
     if(empty($username_err) && empty($password_err)){
         // Prepare a select statement
-        $sql = "SELECT id, username, password FROM users WHERE username = ".$username;
-        //$sql = "SELECT id, username, password FROM users WHERE username = ?";
+        //$sql = "SELECT id, username, password FROM users WHERE username = ".$username;
+        $sql = "SELECT id, username, password FROM users WHERE username = ?";
         echo $sql;
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            //mysqli_stmt_bind_param($stmt, "s", $param_username);
+            mysqli_stmt_bind_param($stmt, "s", $param_username);
             
             // Set parameters
-            //$param_username = $username;
+            $param_username = $username;
             
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
